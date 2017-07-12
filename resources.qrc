@@ -1,0 +1,7 @@
+<RCC>
+    <qresource lang="Empty" prefix="/images">
+        <file alias="O">O.png</file>
+        <file alias="X">X.png</file>
+        <file>Empty.jpg</file>
+    </qresource>
+</RCC>
