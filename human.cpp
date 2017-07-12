@@ -7,5 +7,11 @@ HumanPlayer::HumanPlayer(QString& name, IBoard *board, CellStatus status) : Play
 
 void HumanPlayer::start(int index)
 {
-    getBoard()->onStatusChanged(index/3, index%3, PlayerType::Human);
+    IBoard *board = getBoard();
+
+    if(board != NULL)
+    {
+        int rowsColumns = board->getRowsColumns();
+        board->onStatusChanged(index / rowsColumns, index / rowsColumns, PlayerType::Human);
+    }
 }

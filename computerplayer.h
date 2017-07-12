@@ -6,8 +6,10 @@ class ComputerPlayer : public Player
 {
     Q_OBJECT
 public:
-    explicit ComputerPlayer(IBoard *board, CellStatus status);
+    explicit ComputerPlayer(IBoard * board, CellStatus status);
     virtual void start(int index =-1) override;
+private :
+
 };
 
 #endif // COMPUTERPLAYER_H

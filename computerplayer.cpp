@@ -8,20 +8,31 @@ ComputerPlayer::ComputerPlayer(IBoard *board, CellStatus status) : Player(QStrin
 
 void ComputerPlayer::start(int index)
 {
-   IBoard * board = getBoard();
-   const CellStatus * cells = board->getCells();
-   QList<int> empty;
+    Q_UNUSED(index);
 
-   for(int i =0; i < 9; ++i)
-   {
-       if(cells[i] == CellStatus::Value_Empty)
-           empty.append(i);
-   }
+    IBoard * board = getBoard();
+    if(board != NULL)
+    {
+        int rowColumns = board->getRowsColumns();
+        int boardSize = rowColumns * rowColumns;
+        const CellStatus * cells = board->getCells();
+        if(cells != NULL)
+        {
 
-   if(empty.length() > 0)
-   {
-        int cell = empty[qrand() % empty.length()];
+            QList<int> empty;
 
-        board->onStatusChanged(cell / 3, cell % 3, PlayerType::Computer);
-   }
+            for(int i = 0; i < boardSize; ++i)
+            {
+               if(cells[i] == CellStatus::Value_Empty)
+                   empty.append(i);
+            }
+
+            if(empty.length() > 0)
+            {
+                int cell = empty[qrand() % empty.length()];
+
+                board->onStatusChanged(cell / rowColumns, cell % rowColumns, PlayerType::Computer);
+            }
+        }
+    }
 }

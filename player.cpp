@@ -1,17 +1,45 @@
 #include "player.h"
 
-Player::Player(QString name, IBoard *board, CellStatus status):
+Player::Player(QString name, IBoard *board, CellStatus status, int totalGames, int wins, int ties):
   m_name(name),
-  m_score(0),
   m_board(board),
-  m_status(status)
+  m_status(status),
+  m_totalGames(totalGames++),
+  m_wins(wins),
+  m_ties(ties)
 {
 
 }
 
-int Player::getScore()
+int Player::getWins() const
 {
-    return m_score;
+    return m_wins;
+}
+
+int Player :: getTies() const
+{
+    return m_ties;
+}
+
+int Player::getTotalGames() const
+{
+    return m_totalGames;
+}
+
+void Player::setStatus(GameStatus status)
+{
+    switch(status)
+    {
+        case GameStatus::Won:
+            m_wins++;
+            break;
+        case GameStatus::Tie:
+            m_ties++;
+            break;
+        default:
+        break;
+
+    }
 }
 
 IBoard *::Player::getBoard() const

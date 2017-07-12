@@ -7,6 +7,7 @@ class IBoard {
 public:
     virtual ~IBoard() {}
     virtual const CellStatus * getCells() const = 0;
+    virtual int getRowsColumns() const = 0;
     virtual void onStatusChanged(int row, int col, PlayerType type) = 0;
 };
 

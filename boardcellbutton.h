@@ -16,9 +16,10 @@ public:
     CellStatus getStatus();
 
 private:
-    QPixmap XIcon ;
+    QPixmap XIcon ; //TODO: these resources need to be static
     QPixmap OIcon ;
     QPixmap EmptyIcon ;
+
     int m_index;
     CellStatus m_status;
 };

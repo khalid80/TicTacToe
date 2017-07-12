@@ -5,18 +5,23 @@
 #include "computerplayer.h"
 #include "human.h"
 #include "qdebug.h"
-TicTacToeWidget::TicTacToeWidget(QWidget *parent) : QWidget(parent)
+TicTacToeWidget::TicTacToeWidget(QWidget *parent) : QWidget(parent),
+  m_rowsColumns(3)
 {
     QGridLayout *gridLayout = new QGridLayout;
 
     m_human = new HumanPlayer(QString("khalid"), this, CellStatus::Value_O);
+
     m_computer = new ComputerPlayer(this, CellStatus::Value_X);
 
-    for(int i = 0; i < 9; ++i)
+    int size =  m_rowsColumns * m_rowsColumns;
+
+    for(int i = 0; i < size; ++i)
     {
+
         m_board[i] = CellStatus::Value_Empty;
         BoardCellButton * cell= new BoardCellButton(i);
-        gridLayout->addWidget(cell, i / 3, i % 3);
+        gridLayout->addWidget(cell, i / m_rowsColumns, i % m_rowsColumns);
         connect(cell, SIGNAL(clicked()), this, SLOT(onClick()));
         connect(cell, SIGNAL(statusChanged(int index, IBoard::CellStatus)), this, SLOT(onStatusChanged(int, IBoard::CellStatus)));
     }
@@ -36,9 +41,10 @@ void TicTacToeWidget::onClick()
 
 void TicTacToeWidget::onStatusChanged(int row, int col, PlayerType type)
 {
-    m_board[row *3 +col] = CellStatus::Value_O;
+    int index = row * m_rowsColumns + col;
+    m_board[index] = CellStatus::Value_O;
     QList<BoardCellButton*> buttons = this->findChildren<BoardCellButton *>();
-    BoardCellButton * cell = buttons[row*3 + col];
+    BoardCellButton * cell = buttons[index];
     cell->setStatus(CellStatus::Value_O);
     if(type == PlayerType::Human)
     {
@@ -69,9 +75,15 @@ void TicTacToeWidget::onStatusChanged(int row, int col, PlayerType type)
 
 const CellStatus* TicTacToeWidget::getCells() const
 {
-    CellStatus * x = new CellStatus[9];
-    memcpy(x, m_board, sizeof(CellStatus) * 9);
-    return x;
+    int size = m_rowsColumns * m_rowsColumns;
+    CellStatus * cells = new CellStatus[size];
+
+    if(cells != NULL)
+    {
+        memcpy(cells, m_board, sizeof(CellStatus) *size);
+    }
+
+    return cells;
 }
 
 void TicTacToeWidget::reset()
@@ -85,4 +97,9 @@ void TicTacToeWidget::reset()
         int index = button->getIndex();
         m_board[index] = CellStatus::Value_Empty;
     }
+}
+
+int TicTacToeWidget::getRowsColumns() const
+{
+    return m_rowsColumns;
 }
