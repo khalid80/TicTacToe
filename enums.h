@@ -3,9 +3,9 @@
 
 enum CellStatus
 {
-    Value_X,
-    Value_O,
-    Value_Empty
+    Value_X = 0,
+    Value_O = 1,
+    Value_Empty =4,
 };
 
 enum PlayerType

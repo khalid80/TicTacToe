@@ -23,7 +23,6 @@ TicTacToeWidget::TicTacToeWidget(QWidget *parent) : QWidget(parent),
         BoardCellButton * cell= new BoardCellButton(i);
         gridLayout->addWidget(cell, i / m_rowsColumns, i % m_rowsColumns);
         connect(cell, SIGNAL(clicked()), this, SLOT(onClick()));
-        connect(cell, SIGNAL(statusChanged(int index, IBoard::CellStatus)), this, SLOT(onStatusChanged(int, IBoard::CellStatus)));
     }
 
     setLayout(gridLayout);
@@ -39,37 +38,45 @@ void TicTacToeWidget::onClick()
         m_human->start(cell->getIndex());
 }
 
-void TicTacToeWidget::onStatusChanged(int row, int col, PlayerType type)
+void TicTacToeWidget::onStatusChanged(int row, int col, PlayerType type, CellStatus status)
 {
     int index = row * m_rowsColumns + col;
-    m_board[index] = CellStatus::Value_O;
+    m_board[index] = status;
     QList<BoardCellButton*> buttons = this->findChildren<BoardCellButton *>();
     BoardCellButton * cell = buttons[index];
-    cell->setStatus(CellStatus::Value_O);
-    if(type == PlayerType::Human)
-    {
-        /*foreach(BoardCellButton * button, buttons)
-        {
-            //button->setEnabled(false);
-        }*/
+    cell->setStatus(status);
 
+    if(getWinner() != CellStatus::Value_Empty)
+    {
+        qDebug()<< type;
         setEnabled(false);
-        m_computer->start();
-        //Disable
-        // give chance to computer
     }
     else
     {
-        cell->setStatus(CellStatus::Value_X);
-        setEnabled(true);
-        //cell->setEnabled(false);
-        //enable who is not empty;
-
-        /*foreach(BoardCellButton * button, buttons)
+        if(type == PlayerType::Human)
         {
-            if(button->getStatus() == CellStatus::Value_Empty)
-                button->setEnabled(true);\
-        }*/
+            /*foreach(BoardCellButton * button, buttons)
+            {
+                //button->setEnabled(false);
+            }*/
+
+            setEnabled(false);
+            m_computer->start();
+            //Disable
+            // give chance to computer
+        }
+        else
+        {
+            setEnabled(true);
+            //cell->setEnabled(false);
+            //enable who is not empty;
+
+            /*foreach(BoardCellButton * button, buttons)
+            {
+                if(button->getStatus() == CellStatus::Value_Empty)
+                    button->setEnabled(true);\
+            }*/
+        }
     }
 }
 
@@ -103,3 +110,58 @@ int TicTacToeWidget::getRowsColumns() const
 {
     return m_rowsColumns;
 }
+
+CellStatus TicTacToeWidget:: checkSum(int value) const
+{
+    float val = (float)(value)/(float)(m_rowsColumns);
+
+    if(val == CellStatus::Value_O || val == CellStatus::Value_X)
+        return (CellStatus)(int)val;
+
+    return CellStatus::Value_Empty;
+}
+
+CellStatus TicTacToeWidget:: getWinner() const
+{
+    // check diagonals
+    int firstDiagonal = 0;
+    int secondDiagonal = 0;
+    for(int i = 0; i < m_rowsColumns; ++i)
+    {
+         firstDiagonal+= m_board[i * 3 + i];
+         secondDiagonal+= m_board[i * 3 + m_rowsColumns - i -1];
+    }
+
+    qDebug()<<"First"<<firstDiagonal;
+    qDebug()<<"Second"<<secondDiagonal;
+
+    CellStatus status = checkSum(firstDiagonal);
+    if( status != CellStatus::Value_Empty)
+        return status;
+
+    status = checkSum(secondDiagonal);
+    if( status != CellStatus::Value_Empty)
+        return status;
+
+    for(int row =0; row < m_rowsColumns; ++row)
+    {
+        int rowSum = 0;
+        int columnSum = 0;
+        for(int col =  0; col < m_rowsColumns; ++col)
+        {
+            rowSum += m_board[row * m_rowsColumns + col];
+            columnSum += m_board[col *m_rowsColumns + row];
+        }
+
+        status = checkSum(rowSum);
+        if( status != CellStatus::Value_Empty)
+            return status;
+
+        status = checkSum(columnSum);
+        if( status != CellStatus::Value_Empty)
+            return status;
+    }
+
+    return CellStatus::Value_Empty;
+}
+

@@ -11,7 +11,7 @@ class TicTacToeWidget : public QWidget, public IBoard
     Q_INTERFACES(IBoard)
 public:
     explicit TicTacToeWidget(QWidget *parent = 0);
-    virtual void onStatusChanged(int row, int col, PlayerType type) override;
+    virtual void onStatusChanged(int row, int col, PlayerType type, CellStatus status) override;
     const CellStatus* getCells() const;
     int getRowsColumns() const;
     void reset();
@@ -23,6 +23,9 @@ private:
     Player * m_human;
     Player * m_computer;
     int m_rowsColumns = 3;
+
+    CellStatus getWinner() const; // return Empty if tie;
+    CellStatus checkSum(int) const;
 };
 
 #endif // TicTacToEWIDGET_H

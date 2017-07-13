@@ -47,4 +47,7 @@ IBoard *::Player::getBoard() const
     return m_board;
 }
 
-
+CellStatus Player::getStatus() const
+{
+    return m_status;
+}

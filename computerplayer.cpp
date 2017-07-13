@@ -29,9 +29,9 @@ void ComputerPlayer::start(int index)
 
             if(empty.length() > 0)
             {
-                int cell = empty[qrand() % empty.length()];
+                int cell = empty[(qrand() *10000) % empty.length()];
 
-                board->onStatusChanged(cell / rowColumns, cell % rowColumns, PlayerType::Computer);
+                board->onStatusChanged(cell / rowColumns, cell % rowColumns, PlayerType::Computer, getStatus());
             }
         }
     }

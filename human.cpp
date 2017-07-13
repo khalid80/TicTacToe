@@ -12,6 +12,6 @@ void HumanPlayer::start(int index)
     if(board != NULL)
     {
         int rowsColumns = board->getRowsColumns();
-        board->onStatusChanged(index / rowsColumns, index / rowsColumns, PlayerType::Human);
+        board->onStatusChanged(index / rowsColumns, index % rowsColumns, PlayerType::Human, getStatus());
     }
 }

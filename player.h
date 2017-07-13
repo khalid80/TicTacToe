@@ -28,6 +28,7 @@ public slots:
 
 protected:
     IBoard * getBoard() const;
+    CellStatus getStatus() const;
 private :
     QString m_name;
     int m_wins;
