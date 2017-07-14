@@ -29,7 +29,9 @@ SOURCES += main.cpp\
     computerplayer.cpp \
     player.cpp \
     human.cpp \
-    tictactoewidget.cpp
+    tictactoewidget.cpp \
+    settings.cpp \
+    utils.cpp
 
 HEADERS  += mainwindow.h \
     iboard.h \
@@ -38,7 +40,9 @@ HEADERS  += mainwindow.h \
     player.h \
     enums.h \
     human.h \
-    tictactoewidget.h
+    tictactoewidget.h \
+    settings.h \
+    utils.h
 
 FORMS    +=
 

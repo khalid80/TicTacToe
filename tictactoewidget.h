@@ -11,21 +11,20 @@ class TicTacToeWidget : public QWidget, public IBoard
     Q_INTERFACES(IBoard)
 public:
     explicit TicTacToeWidget(QWidget *parent = 0);
-    virtual void onStatusChanged(int row, int col, PlayerType type, CellStatus status) override;
-    const CellStatus* getCells() const;
+    virtual void onStatusChanged(int row, int col, Player * player, bool disableBoard) override;
+    CellStatus* getCells() const;
     int getRowsColumns() const;
     void reset();
+    void initialize(Player *, Player *);
 private slots:
     void onClick();
 
 private:
     CellStatus m_board [9];
-    Player * m_human;
-    Player * m_computer;
+    Player * m_player1;
+    Player * m_player2;
     int m_rowsColumns = 3;
-
-    CellStatus getWinner() const; // return Empty if tie;
-    CellStatus checkSum(int) const;
+    bool m_initialized;
 };
 
 #endif // TicTacToEWIDGET_H

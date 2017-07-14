@@ -1,5 +1,5 @@
 #include "player.h"
-
+#include "qdebug.h"
 Player::Player(QString name, IBoard *board, CellStatus status, int totalGames, int wins, int ties):
   m_name(name),
   m_board(board),
@@ -26,8 +26,9 @@ int Player::getTotalGames() const
     return m_totalGames;
 }
 
-void Player::setStatus(GameStatus status)
+void Player::setResult(GameStatus status)
 {
+    m_totalGames++;
     switch(status)
     {
         case GameStatus::Won:
@@ -35,6 +36,7 @@ void Player::setStatus(GameStatus status)
             break;
         case GameStatus::Tie:
             m_ties++;
+            qDebug()<<m_ties;
             break;
         default:
         break;
@@ -50,4 +52,9 @@ IBoard *::Player::getBoard() const
 CellStatus Player::getStatus() const
 {
     return m_status;
+}
+
+void Player::setStatus(CellStatus status)
+{
+     m_status = status;
 }

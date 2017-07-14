@@ -26,15 +26,15 @@ void BoardCellButton::setStatus(CellStatus status)
     m_status = status;
 
     switch (status) {
-    case CellStatus::Value_X:
-        setIcon(QIcon(XIcon));
-        break;
-    case CellStatus::Value_O:
-        setIcon(QIcon(OIcon));
-        break;
-    default:
-        setIcon(QIcon(EmptyIcon));
-        break;
+        case CellStatus::Value_X:
+            setIcon(QIcon(XIcon));
+            break;
+        case CellStatus::Value_O:
+            setIcon(QIcon(OIcon));
+            break;
+        default:
+            setIcon(QIcon(EmptyIcon));
+            break;
     }
 
     setIconSize(QSize(128,128));

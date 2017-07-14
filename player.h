@@ -5,6 +5,7 @@
 #include "iboard.h"
 class Player : public QObject
 {
+public :
     enum GameStatus
     {
         Won,
@@ -20,15 +21,15 @@ public:
     int getTies() const;
     int getTotalGames() const;
     virtual void start(int index = -1) = 0;
-    virtual void setStatus(GameStatus status = Tie);
-
+    virtual void setResult(GameStatus status = Tie);
+    virtual void setStatus(CellStatus status);
+    CellStatus getStatus() const;
 signals:
 
 public slots:
 
 protected:
     IBoard * getBoard() const;
-    CellStatus getStatus() const;
 private :
     QString m_name;
     int m_wins;

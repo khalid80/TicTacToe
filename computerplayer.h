@@ -2,6 +2,20 @@
 #define COMPUTERPLAYER_H
 #include "player.h"
 
+struct Cell
+{
+    Cell()
+    {
+
+    }
+
+    Cell(int weight) :weight(weight){}
+
+    int index;
+    int weight;
+};
+
+
 class ComputerPlayer : public Player
 {
     Q_OBJECT
