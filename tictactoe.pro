@@ -30,7 +30,6 @@ SOURCES += main.cpp\
     player.cpp \
     human.cpp \
     tictactoewidget.cpp \
-    settings.cpp \
     utils.cpp
 
 HEADERS  += mainwindow.h \
@@ -41,7 +40,6 @@ HEADERS  += mainwindow.h \
     enums.h \
     human.h \
     tictactoewidget.h \
-    settings.h \
     utils.h
 
 FORMS    +=
