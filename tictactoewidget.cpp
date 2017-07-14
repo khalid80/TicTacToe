@@ -1,4 +1,4 @@
-#include "TicTacToewidget.h"
+#include "tictactoewidget.h"
 #include <QGridLayout>
 #include <boardcellbutton.h>
 #include <QObject>

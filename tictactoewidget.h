@@ -12,8 +12,8 @@ class TicTacToeWidget : public QWidget, public IBoard
 public:
     explicit TicTacToeWidget(QWidget *parent = 0);
     virtual void onStatusChanged(int row, int col, Player * player, bool disableBoard) override;
-    CellStatus* getCells() const;
-    int getRowsColumns() const;
+    CellStatus* getCells() const override;
+    int getRowsColumns() const override;
     void reset();
     void initialize(Player *, Player *);
 private slots:

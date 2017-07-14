@@ -6,7 +6,7 @@ class HumanPlayer : public Player
 {
     Q_OBJECT
 public:
-    explicit HumanPlayer(QString& name, IBoard *board, CellStatus status);
+    explicit HumanPlayer(const QString& name, IBoard *board, CellStatus status);
     virtual void start(int index =-1) override;
 };
 

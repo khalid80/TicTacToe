@@ -1,6 +1,6 @@
 #include "human.h"
 
-HumanPlayer::HumanPlayer(QString& name, IBoard *board, CellStatus status) : Player(name, board, status)
+HumanPlayer::HumanPlayer(const QString& name, IBoard *board, CellStatus status) : Player(name, board, status)
 {
 
 }

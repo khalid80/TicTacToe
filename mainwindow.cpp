@@ -3,7 +3,6 @@
 #include "QVBoxLayout"
 #include "QPushButton"
 #include "QApplication"
-#include "settings.h"
 #include "QMessageBox"
 #include "human.h"
 #include "computerplayer.h"

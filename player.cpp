@@ -2,11 +2,11 @@
 #include "qdebug.h"
 Player::Player(QString name, IBoard *board, CellStatus status, int totalGames, int wins, int ties):
   m_name(name),
-  m_board(board),
-  m_status(status),
-  m_totalGames(totalGames++),
   m_wins(wins),
-  m_ties(ties)
+  m_totalGames(totalGames),
+  m_ties(ties),
+  m_board(board),
+  m_status(status)
 {
 
 }

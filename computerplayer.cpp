@@ -87,7 +87,7 @@ void ComputerPlayer::start(int index)
     delete cells;
 
     /*****************************************Easy Level
-    /*IBoard * board = getBoard();
+    IBoard * board = getBoard();
     CellStatus * pCells = board->getCells();
     int rowColumns = board->getRowsColumns();
     int  boardSize = rowColumns * rowColumns;
